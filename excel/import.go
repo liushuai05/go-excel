@@ -46,7 +46,7 @@ func importData(f *excelize.File, dst interface{}, sheetName string, headIndex, 
 	dataValue := reflect.ValueOf(dst) // 取目标对象的元素类型、字段类型和 tag
 	// 判断数据的类型
 	if dataValue.Kind() != reflect.Ptr || dataValue.Elem().Kind() != reflect.Slice {
-		err = errors.New("Invalid data type")
+		err = errors.New("无效的数据类型")
 	}
 	heads := []string{}                        // 表头
 	dataType := dataValue.Elem().Type().Elem() // 获取导入目标对象的类型信息

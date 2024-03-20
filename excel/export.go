@@ -135,7 +135,12 @@ func ExportExcel(sheet, title, fields string, isGhbj, isIgnore bool, list interf
 	dataValue := reflect.ValueOf(list)
 	// 判断数据的类型
 	if dataValue.Kind() != reflect.Slice {
-		err = errors.New("invalid data type")
+		err = errors.New("无效的数据类型")
+		return
+	}
+	// 进一步判断是否是结构体切片
+	if dataValue.Type().Elem().Kind() != reflect.Struct {
+		err = errors.New("无效的数据类型")
 		return
 	}
 	// 构造表头
@@ -166,7 +171,12 @@ func CustomHeaderExport(sheet, title string, isGhbj bool, heads interface{}, lis
 	dataValue := reflect.ValueOf(list)
 	// 判断数据的类型
 	if dataValue.Kind() != reflect.Slice {
-		err = errors.New("invalid data type")
+		err = errors.New("无效的数据类型")
+		return
+	}
+	// 进一步判断是否是结构体切片
+	if dataValue.Type().Elem().Kind() != reflect.Struct {
+		err = errors.New("无效的数据类型")
 		return
 	}
 	// 构造数据行

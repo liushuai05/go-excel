@@ -282,7 +282,7 @@ func ExportVertical() {
 	fmt.Println("Excel文件已生成")
 }
 
-// 模板导出
+// 模板导出（excel、word）
 func ExportTemplate() {
 	/** 关于模板导出：
 	excelize并没有提供类似Java easypoi的模板指令功能，假如需要根据excel模板导出excel文件的话，我现在的解决办法就是通过
@@ -318,8 +318,12 @@ func ExportTemplate() {
 		},
 		"list": list,
 	}
+	// excel模板导出
 	templatePath := "template\\测试模板导出.xml"                      // 模板路径
 	outPath := "C:\\Users\\Administrator\\Desktop\\output.xlsx" // 输出路径
+	// word模板导出
+	//templatePath := "template\\word导出.xml"                      // 模板路径
+	//outPath := "C:\\Users\\Administrator\\Desktop\\output.docx" // 输出路径
 	err := excel.TemplateExport(templatePath, outPath, data)
 	if err != nil {
 		fmt.Println(err.Error())
