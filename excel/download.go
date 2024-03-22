@@ -9,6 +9,7 @@ import (
 	"github.com/xuri/excelize/v2"
 	"html/template"
 	"net/http"
+	"net/url"
 )
 
 // ================================= 下载到浏览器 =================================
@@ -58,7 +59,7 @@ func DownLoadExcel(fileName string, res http.ResponseWriter, file *excelize.File
 	// 设置响应头
 	res.Header().Set("Content-Type", "text/html; charset=UTF-8")
 	res.Header().Set("Content-Type", "application/octet-stream")
-	res.Header().Set("Content-Disposition", "attachment; filename="+fileName+".xlsx")
+	res.Header().Set("Content-Disposition", "attachment; filename="+url.PathEscape(fileName)+".xlsx")
 	res.Header().Set("Access-Control-Expose-Headers", "Content-Disposition")
 	err := file.Write(res) // 写入Excel文件内容到响应体
 	if err != nil {
@@ -77,7 +78,7 @@ func DownLoadByTemplate(templatePath, fileName string, data map[string]interface
 	// 设置响应头
 	res.Header().Set("Content-Type", "text/html; charset=UTF-8")
 	res.Header().Set("Content-Type", "application/octet-stream")
-	res.Header().Set("Content-Disposition", "attachment; filename="+fileName)
+	res.Header().Set("Content-Disposition", "attachment; filename="+url.PathEscape(fileName))
 	res.Header().Set("Access-Control-Expose-Headers", "Content-Disposition")
 	// 渲染模板并输出结果
 	err = tmpl.Execute(res, data)
