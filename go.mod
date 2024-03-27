@@ -1,4 +1,4 @@
-module go-excel
+module github.com/liushuai05/go-excel
 
 go 1.21
 
